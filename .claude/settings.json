@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "/home/anikkhoma/repos/sfera/sfera",
+      "/home/anikkhoma/repos/sfera/sfera-target-sim"
+    ]
+  }
+}
