@@ -1,0 +1,12 @@
+--- a/libraries/SITL/SIM_QuadPlane.cpp	2026-09-24 11:55:44.156464636 +0300
++++ b/libraries/SITL/SIM_QuadPlane.cpp	2026-09-24 11:55:44.236508422 +0300
+@@ -74,7 +74,8 @@
+         // fwd motor gives zero thrust
+         thrust_scale = 0;
+     } else if (strstr(frame_str, "-copter_tailsitter")) {
+-        frame_type = "+";
++        // "-copter_tailsitter-x" selects an X motor layout (Q_FRAME_TYPE=1)
++        frame_type = strstr(frame_str, "-copter_tailsitter-x") ? "x" : "+";
+         copter_tailsitter = true;
+         ground_behavior = GROUND_BEHAVIOR_TAILSITTER;
+         thrust_scale *= 1.5;

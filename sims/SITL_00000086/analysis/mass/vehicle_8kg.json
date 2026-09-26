@@ -1,0 +1,36 @@
+{
+ "_comment": "Профіль апарата для стенду sfera/tools/sitl (run_sitl.sh --vehicle, e2e.py --vehicle). Шляхи — відносно цього файлу або з ~ / $ARDUPILOT_DIR.",
+ "name": "tailsitter_00000086_8kg",
+ "kind": "plane",
+ "mav_type": 1,
+ "sitl_bin": "$ARDUPILOT_DIR/build/sitl/bin/arduplane",
+ "ardupilot_dir": "~/ardupilot/ardupilot-4.6.3",
+ "frame": "quadplane-copter_tailsitter-x",
+ "model_file": "model_8kg.json",
+ "defaults": [
+  "$ARDUPILOT_DIR/Tools/autotest/default_params/quadplane.parm",
+  "$ARDUPILOT_DIR/Tools/autotest/default_params/quadplane-copter_tailsitter.parm",
+  "../../00000086_sitl.param"
+ ],
+ "profiles": {
+  "as-flown": [],
+  "bench": [
+   "../../profile_bench.parm"
+  ]
+ },
+ "default_profile": "bench",
+ "home": "49.9480133,25.5002564,271.36,118",
+ "land_mode": "QLAND",
+ "_extra_params": "Лише для стенду: SERIAL1 (на апараті -1) — бічний канал стенду tcp:5762; журнал DataFlash (LOG_BACKEND_TYPE=1 з логу) лишається для калібрування.",
+ "extra_params": {
+  "SERIAL1_PROTOCOL": 2,
+  "LOG_DISARMED": 0,
+  "TERRAIN_ENABLE": 0
+ },
+ "calibration": {
+  "_comment": "Висіння з логу 00000086.BIN (QLOITER, t=20..69 с)",
+  "hover_tho": 0.57,
+  "hover_rcou": 1486,
+  "hover_current_a": 15.8
+ }
+}

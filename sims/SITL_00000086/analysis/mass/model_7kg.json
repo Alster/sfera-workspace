@@ -1,0 +1,42 @@
+# SITL frame model for the copter-style quad tailsitter from 00000086.BIN
+# Values marked "log" are measured from the flight log; values marked "ESTIMATE" are guesses.
+# Keys that are not listed fall back to the SITL default model.
+
+{
+    # ESTIMATE. The SITL QuadPlane model multiplies this by 1.5,
+    # so 2.0 here = 3.0 kg simulated. Replace with (real mass / 1.5).
+    "mass" : 4.667,
+
+    # log: hover in QLOITER, t=20..69 s: BAT.Volt ~32.1 V, BAT.Curr ~15.8 A.
+    # SITL scales mass by 1.5 AFTER computing power, so refCurrent = 15.8 / 1.5
+    # (calibrated in SITL: hover current 15.7 A).
+    "refVoltage" : 32.1,
+    "refCurrent" : 10.5,
+    # log: home altitude AMSL
+    "refAlt" : 271,
+    # log: mean BAT.Res while current > 5 A
+    "refBatRes" : 0.163,
+
+    # log: 8S HV pack, 34.9 V at log start; BATT_CAPACITY 15000
+    "maxVoltage" : 34.9,
+    "battCapacityAh" : 15,
+
+    # log params: Q_M_THST_EXPO, Q_M_PWM_MIN/MAX, Q_M_SPIN_MIN/MAX
+    "propExpo" : 0.65,
+    "pwmMin" : 1000,
+    "pwmMax" : 2000,
+    "spin_min" : 0.2,
+    "spin_max" : 0.6,
+
+    # Target: QTUN.ThO ~0.57 in hover (log, QLOITER). Calibrated in SITL (GUIDED hover, 40 m):
+    # 0.325 -> ThO 0.573, RCOU C5..C8 ~1474 (log 1486). Re-check after changing mass.
+    "hoverThrOut" : 0.325,
+
+    # ESTIMATE (inertia). SITL derives the moment of inertia from mass and diagonal_size (default 0.35 m ->
+    # ~0.023 kg*m2): with the log's tuning the attitude loop then oscillates (motors swing SPIN_MIN..SPIN_MAX
+    # in calm hover, the log shows steady 1456-1507 us). 0.5 m removes it (checked 0.5/0.7/0.9, 2026-09-26).
+    # Replace with the real frame size / measured inertia ("moment_inertia": [x, y, z]) when known.
+    "diagonal_size" : 0.5,
+
+    "num_motors" : 4
+}

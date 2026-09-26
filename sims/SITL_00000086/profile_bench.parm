@@ -1,0 +1,19 @@
+# Профіль "bench" = "as-flown" (00000086_sitl.param) + мінімальні зміни для роботи зі SFERA.
+# Застосовується поверх 00000086_sitl.param. Тюнінг, SPIN_MAX, THST_HOVER, Q_TAILSIT_* не змінено.
+# Кожен рядок: нове значення # як у лозі -> навіщо.
+FS_GCS_ENABL 1        # 0 -> втрата HEARTBEAT від SFERA (SYSID_MYGCS=255) = фейлсейф
+FS_LONG_ACTN 1        # 0 -> довгий фейлсейф = RTL, а з Q_RTL_MODE=3 це одразу QRTL
+Q_RTL_MODE 3          # 0 -> RTL виконується як QRTL (VTOL-повернення й посадка)
+Q_GUIDED_MODE 1       # 0 -> GUIDED закінчується VTOL-висінням у точці, а не FW-колом
+# Q_TRANS_FAIL* не задаємо: у 4.6.3 діє лише для SLT_Transition, tailsitter має власний перехід
+# (Tailsitter_Transition, завершення за кутом/креном/таймаутом — усі три = "FW done"). Див. HARDWARE_GATES.md, K1.
+AIRSPEED_CRUISE 22    # 50 -> реалістичні швидкості апарата (SITL: 26-36 м/с за газом)
+AIRSPEED_MIN 15       # 30
+AIRSPEED_MAX 30       # 70
+FENCE_ENABLE 1        # 0 -> geofence обов'язковий для ривку (план); SFERA перевіряє перед засідкою
+FENCE_TYPE 3          # 4 (полігон без точок) -> стеля + коло навколо дому
+FENCE_RADIUS 4000     # 300 -> ривок ≥600 м + зворотний перехід до 300 м уперед
+FENCE_ALT_MAX 300     # 100 -> висіння + підкидання зворотного переходу до +100 м (SITL: до ~140 м з 40 м)
+FENCE_ACTION 1        # 1 -> RTL (= QRTL з Q_RTL_MODE 3)
+Q_ANGLE_MAX 3000      # 2000 -> VTOL-нахил до 30°: у SITL із 20° апарат не тримає точку вже при 5 м/с вітру, з 30° — тримає
+                      # (FINDINGS §5, «Вітер»). На залізі — лише після перевірки (HARDWARE_GATES §5а)

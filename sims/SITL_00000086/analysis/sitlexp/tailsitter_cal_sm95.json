@@ -1,0 +1,34 @@
+# SITL frame model for the copter-style quad tailsitter from 00000086.BIN
+# Values marked "log" are measured from the flight log; values marked "ESTIMATE" are guesses.
+# Keys that are not listed fall back to the SITL default model.
+
+{
+    # ESTIMATE. The SITL QuadPlane model multiplies this by 1.5,
+    # so 2.0 here = 3.0 kg simulated. Replace with (real mass / 1.5).
+    "mass" : 2.0,
+
+    # log: hover in QHOVER, t=20..69 s: BAT.Volt ~32.1 V, BAT.Curr ~15.8 A
+    "refVoltage" : 32.1,
+    "refCurrent" : 10.5,
+    # log: home altitude AMSL
+    "refAlt" : 271,
+    # log: mean BAT.Res while current > 5 A
+    "refBatRes" : 0.163,
+
+    # log: 8S HV pack, 34.9 V at log start; BATT_CAPACITY 15000
+    "maxVoltage" : 34.9,
+    "battCapacityAh" : 15,
+
+    # log params: Q_M_THST_EXPO, Q_M_PWM_MIN/MAX, Q_M_SPIN_MIN/MAX
+    "propExpo" : 0.65,
+    "pwmMin" : 1000,
+    "pwmMax" : 2000,
+    "spin_min" : 0.2,
+    "spin_max" : 0.95,
+
+    # Target: QTUN.ThO ~0.57 in hover (log). Starts at 0.57/1.5 to account
+    # for the 1.5x mass scale; tune until SITL hover shows ThO ~0.57.
+    "hoverThrOut" : 0.325,
+
+    "num_motors" : 4
+}
